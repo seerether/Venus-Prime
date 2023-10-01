@@ -1,3 +1,13 @@
-uint256 availableBalance = token_.balanceOf(address(this)) - tokenAmountAccrued[token_]; 
-if (amount_ > availableBalance) {
-  revert InsufficientBalance(amount_, availableBalance);  
+function sweepToken(IERC20Upgradeable token_, address to_, uint256 amount_) external onlyOwner {
+
+  uint256 balance = token_.balanceOf(address(this));  
+  uint256 accrued = tokenAmountAccrued[address(token_)];
+  uint256 availableBalance = balance - accrued;
+
+  if (amount_ > availableBalance) {
+    revert InsufficientBalance(amount_, availableBalance);
+  }
+
+  // transfer amount_
+}
+
